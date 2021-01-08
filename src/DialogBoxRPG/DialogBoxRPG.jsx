@@ -57,11 +57,11 @@ const DialogBoxRPG = React.memo(
 
     const handleClickBoxToNext = useCallback(() => {
       if (refIsWindupsFinished.current === false) {
-        setIsWindupSkipped(true);
+        handleIsWindupFinished();
       } else {
         !disableGoNext && handleGoNext();
       }
-    }, [disableGoNext, handleGoNext]);
+    }, [disableGoNext, handleGoNext, handleIsWindupFinished]);
 
     switch (mode) {
       case "choice":
