@@ -6,6 +6,7 @@ import useKey from "react-use/lib/useKey.js";
 import ChoiceContainer from "./ChoiceContainer";
 import RoleDialogContainer from "./RoleDialogContainer";
 import NarratorContainer from "./NarratorContainer";
+import sty from "./DialogBoxRPG.module.scss";
 
 const DialogBoxRPG = React.memo(
   ({
@@ -34,6 +35,8 @@ const DialogBoxRPG = React.memo(
 
     dialogPauseMS,
     dialogPaceMS,
+    isUseClickOut,
+    classNameClickOut,
   }) => {
     const refIsWindupsFinished = useRef(false);
     const [isWindupSkipped, setIsWindupSkipped] = useState(false);
@@ -83,39 +86,55 @@ const DialogBoxRPG = React.memo(
 
       case "narrator":
         return (
-          <div className={cx(className)} onClick={handleClickBoxToNext}>
-            <NarratorContainer
-              className={classNameNarratorContainer}
-              classNameNextIcon={classNameNextIcon}
-              nextIconDelayMillisecond={nextIconDelayMillisecond}
-              dialogPauseMS={dialogPauseMS}
-              dialogPaceMS={dialogPaceMS}
-              isWindupSkipped={isWindupSkipped}
-              handleIsWindupFinished={handleIsWindupFinished}
-            >
-              {children}
-            </NarratorContainer>
-          </div>
+          <>
+            {isUseClickOut && (
+              <div
+                className={cx(sty.box__click_out, classNameClickOut)}
+                onClick={handleClickBoxToNext}
+              ></div>
+            )}
+            <div className={cx(className)} onClick={handleClickBoxToNext}>
+              <NarratorContainer
+                className={classNameNarratorContainer}
+                classNameNextIcon={classNameNextIcon}
+                nextIconDelayMillisecond={nextIconDelayMillisecond}
+                dialogPauseMS={dialogPauseMS}
+                dialogPaceMS={dialogPaceMS}
+                isWindupSkipped={isWindupSkipped}
+                handleIsWindupFinished={handleIsWindupFinished}
+              >
+                {children}
+              </NarratorContainer>
+            </div>
+          </>
         );
 
       default:
         return (
-          <div className={cx(className)} onClick={handleClickBoxToNext}>
-            <RoleDialogContainer
-              role_name={role_name}
-              role_img={role_img}
-              className={classNameRoleDialogContainer}
-              classNameRoleName={classNameRoleName}
-              nextIconDelayMillisecond={nextIconDelayMillisecond}
-              dialogPauseMS={dialogPauseMS}
-              dialogPaceMS={dialogPaceMS}
-              classNameNextIcon={classNameNextIcon}
-              isWindupSkipped={isWindupSkipped}
-              handleIsWindupFinished={handleIsWindupFinished}
-            >
-              {children}
-            </RoleDialogContainer>
-          </div>
+          <>
+            {isUseClickOut && (
+              <div
+                className={cx(sty.box__click_out, classNameClickOut)}
+                onClick={handleClickBoxToNext}
+              ></div>
+            )}
+            <div className={cx(className)} onClick={handleClickBoxToNext}>
+              <RoleDialogContainer
+                role_name={role_name}
+                role_img={role_img}
+                className={classNameRoleDialogContainer}
+                classNameRoleName={classNameRoleName}
+                nextIconDelayMillisecond={nextIconDelayMillisecond}
+                dialogPauseMS={dialogPauseMS}
+                dialogPaceMS={dialogPaceMS}
+                classNameNextIcon={classNameNextIcon}
+                isWindupSkipped={isWindupSkipped}
+                handleIsWindupFinished={handleIsWindupFinished}
+              >
+                {children}
+              </RoleDialogContainer>
+            </div>
+          </>
         );
     }
   }
@@ -142,6 +161,8 @@ DialogBoxRPG.propTypes = {
   classNameChoiceContainer: PropTypes.string,
   classNameNarratorContainer: PropTypes.string,
   classNameNextIcon: PropTypes.string,
+  classNameClickOut: PropTypes.string,
+  isUseClickOut: PropTypes.bool,
 };
 
 export default DialogBoxRPG;
