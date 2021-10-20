@@ -37,6 +37,8 @@ const DialogBoxRPG = React.memo(
     dialogPaceMS,
     isUseClickOut,
     classNameClickOut,
+
+    handleIsComplete,
   }) => {
     const refIsWindupsFinished = useRef(false);
     const [isWindupSkipped, setIsWindupSkipped] = useState(false);
@@ -49,6 +51,7 @@ const DialogBoxRPG = React.memo(
 
     const handleIsWindupFinished = useCallback(() => {
       refIsWindupsFinished.current = true;
+      handleIsComplete && handleIsComplete();
       setIsWindupSkipped(true);
     }, []);
 
@@ -163,6 +166,7 @@ DialogBoxRPG.propTypes = {
   classNameNextIcon: PropTypes.string,
   classNameClickOut: PropTypes.string,
   isUseClickOut: PropTypes.bool,
+  handleIsComplete: PropTypes.func,
 };
 
 export default DialogBoxRPG;
